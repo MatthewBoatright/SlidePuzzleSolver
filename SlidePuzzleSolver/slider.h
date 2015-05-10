@@ -14,6 +14,12 @@
 #include <stdlib.h>
 
 //============================================================
+// DEFINES
+#define SUCCESS 0
+#define FAILURE 1
+#define QUIT 2
+
+//============================================================
 // SLIDER CLASS
 using namespace std;
 
@@ -23,8 +29,8 @@ private:
 	string INPUT;
 	vector<int> grid;
 public:
-	Slider();
-	string getInput();
+	int setInput(string in="");
+	string getInput() { return INPUT; };
 };
 
 #endif

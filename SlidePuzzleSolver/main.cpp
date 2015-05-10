@@ -6,13 +6,32 @@
 // MAIN
 int main()
 {
-	string exit;
+	int signal;
+	Slider slider;
+
 	do
 	{
-		Slider slider;
-		exit = slider.getInput();
+		signal = slider.setInput();
+
+		if (signal == SUCCESS)
+		{
+			cout << "Beginning calculations...\n";
+		}
+		else if (signal == FAILURE)
+		{
+			cout << slider.getInput();
+		}
+		else if (signal == QUIT)
+		{
+			cout << "Quiting...\n";
+		}
+		else
+		{
+			cout << "Unknown return: " << signal << "\n";
+		}
+
 	} 
-	while (exit != "exit");
+	while (signal != QUIT);
 
 	return 0;
 }
