@@ -16,6 +16,7 @@ int main()
 		if (signal == SUCCESS)
 		{
 			cout << "Beginning calculations...\n";
+			slider.solvability(slider.getGrid());
 		}
 		else if (signal == FAILURE)
 		{

@@ -73,3 +73,56 @@ int Slider::setInput(string in)
 
 	return SUCCESS;
 }
+
+// RETURN:
+//			# of inversions
+//
+int Slider::inversions(vector<int> g)
+{
+	int size = g.size();
+	int inv = 0;
+
+	// Get number of inversions
+	for (int j = 0; j < g.size(); j++)
+	{
+		int n = g.at(j);
+
+		for (int k = j + 1; k < g.size(); k++)
+		{
+			int nn = g.at(k);
+			if ((n > nn) && (n != (size-1)) && (nn != (size-1)))
+			{
+				inv++;
+			}
+		}
+	}
+
+	return inv;
+}
+
+// RETURN:
+//			0 = Success
+//			1 = Failure
+//
+int Slider::solvability(vector<int> g)
+{
+	int size = g.size();
+	int width = sqrt(size);
+	int inv = inversions(g);
+
+	// If odd
+	if ((width % 2) != 0)
+	{
+		if ((inv % 2) != 0)
+		{
+			cout << "This grid is unsolvable!\n";
+			return FAILURE;
+		}
+	}
+	else if ((width % 2) == 0)
+	{
+
+	}
+
+	return 0;
+}

@@ -1,7 +1,7 @@
 //============================================================
 // INCLUDE GUARD
-#ifndef SLIDEPUZZLESOLVER_H
-#define SLIDEPUZZLESOLVER_H
+#ifndef SLIDER_H
+#define SLIDER_H
 
 //============================================================
 // INCLUDED DEPENDENCIES
@@ -30,7 +30,10 @@ private:
 	vector<int> grid;
 public:
 	int setInput(string in="");
+	int inversions(vector<int> g);
+	int solvability(vector<int> g);
 	string getInput() { return INPUT; };
+	vector<int> getGrid() { return grid; };
 };
 
 #endif
