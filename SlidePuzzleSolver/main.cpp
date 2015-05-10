@@ -14,7 +14,5 @@ int main()
 	} 
 	while (exit != "exit");
 
-	
-
 	return 0;
 }
