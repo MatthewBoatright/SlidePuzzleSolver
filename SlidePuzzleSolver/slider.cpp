@@ -22,7 +22,7 @@ Slider::Slider()
 		// STREAM
 		istringstream stream(INPUT);
 
-		// DETERMINE IF ACCEPTABLE
+		// DETERMINE IF INPUT IS NUMERIC
 		string n;
 		while (stream >> n)
 		{
@@ -33,18 +33,38 @@ Slider::Slider()
 			else if (n != "exit")
 			{
 				reject = true;
-				cout << "Please only enter numbers.\n";
+				cout << "ERROR: Only numbers are allowed.\n";
 				break;
+			}
+		}
+
+		// DETERMINE IF INPUT IS PERFECT SQUARE AND RANGES FROM 1 to n^2
+		if (!reject)
+		{
+			double d = sqrt(grid.size());
+			int i = d;
+
+			if (i != d || grid.size() == 1)
+			{
+				cout << "ERROR: Series size must be a perfect square and greater than 1.\n";
+				reject = true;
+			}
+			else
+			{
+				for (int j = 0; j < grid.size(); j++)
+				{
+					if (grid.at(j) < 1 || grid.at(j) > grid.size())
+					{
+						cout << "ERROR: Series must range from 1 to n^2.\n";
+						reject = true;
+					}
+				}
 			}
 		}
 	} 
 	while (reject);
 
-	for (int j = 0; j < grid.size(); j++)
-	{
-		cout << grid.at(j) << '\n';
-	}
-
+	cout << "SUCCESS.\n";
 }
 
 //============================================================
