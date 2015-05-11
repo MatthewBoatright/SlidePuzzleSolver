@@ -75,7 +75,7 @@ vector<char> Node::possibleMoves()
 	{
 		if (moves.at(j) == last_move)
 		{
-			moves.erase(moves.begin()+(j+1));
+			moves.erase(moves.begin()+j);
 		}
 	}
 
