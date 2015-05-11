@@ -16,7 +16,12 @@ int main()
 		if (signal == SUCCESS)
 		{
 			cout << "Beginning calculations...\n";
-			slider.solvability(slider.getGrid());
+			signal = slider.solvability(slider.getGrid(), slider.inversions(slider.getGrid()));
+
+			if (signal == SUCCESS)
+			{
+				cout << "Solving...\n";
+			}
 		}
 		else if (signal == FAILURE)
 		{
@@ -31,6 +36,7 @@ int main()
 			cout << "Unknown return: " << signal << "\n";
 		}
 
+		cout << "\n";
 	} 
 	while (signal != QUIT);
 

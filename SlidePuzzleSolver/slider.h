@@ -31,7 +31,7 @@ private:
 public:
 	int setInput(string in="");
 	int inversions(vector<int> g);
-	int solvability(vector<int> g);
+	int solvability(vector<int> g, int inv);
 	string getInput() { return INPUT; };
 	vector<int> getGrid() { return grid; };
 };

@@ -50,10 +50,16 @@ int Slider::setInput(string in)
 		}
 	}
 
-	// DETERMINE IF INPUT IS PERFECT SQUARE AND RANGES FROM 1 to n^2
+	// DETERMINE IF INPUT: 
+	//		IS PERFECT SQUARE 
+	//		RANGES FROM 1 to n^2
+	//		CONTAINS DUPLICATES
+	//
 	double d = sqrt(grid.size());
 	int i = d;
+	vector<int> found;
 
+	// PERFECT SQUARE
 	if (i != d || grid.size() == 1)
 	{
 		INPUT = "ERROR: Series size must be a perfect square and greater than 1.\n";
@@ -63,13 +69,28 @@ int Slider::setInput(string in)
 	{
 		for (int j = 0; j < grid.size(); j++)
 		{
-			if (grid.at(j) < 1 || grid.at(j) > grid.size())
+			int n = grid.at(j);
+			// IN RANGE
+			if (n < 1 || n > grid.size())
 			{
 				INPUT = "ERROR: Series must range from 1 to n^2.\n";
 				return FAILURE;
 			}
+
+			// CONTAINS DUPLICATES
+			for (int k = 0; k < found.size(); k++)
+			{
+				if (n == found.at(k))
+				{
+					INPUT = "ERROR: Series contains duplicates.\n";
+					return FAILURE;
+				}
+			}
+
+			found.push_back(n);
 		}
 	}
+
 
 	return SUCCESS;
 }
@@ -90,7 +111,7 @@ int Slider::inversions(vector<int> g)
 		for (int k = j + 1; k < g.size(); k++)
 		{
 			int nn = g.at(k);
-			if ((n > nn) && (n != (size-1)) && (nn != (size-1)))
+			if ((n > nn) && (n != (size)) && (nn != (size)))
 			{
 				inv++;
 			}
@@ -104,25 +125,62 @@ int Slider::inversions(vector<int> g)
 //			0 = Success
 //			1 = Failure
 //
-int Slider::solvability(vector<int> g)
+int Slider::solvability(vector<int> g, int inv)
 {
+	/* Notes about solvability:
+	// To determine a sliding puzzles solvability we must first count its number of inversions.
+	// The number of inversions is represented the number of tiles (a, b) where a>b but appears before b.
+	// If an odd width grid has an even number of inversions then it is solvable.
+	// For an even width grid:
+	//		If the null space is on an even row (from the top), the number of inversions must be even.
+	//		If the null space is on an odd row (from the top), the number of inversions must be odd.
+	*/
 	int size = g.size();
 	int width = sqrt(size);
-	int inv = inversions(g);
 
-	// If odd
+	// Odd width
 	if ((width % 2) != 0)
 	{
 		if ((inv % 2) != 0)
 		{
-			cout << "This grid is unsolvable!\n";
+			cout << "This grid is unsolvable! The width is odd with an odd # of inversions.\n";
 			return FAILURE;
 		}
 	}
+	// Even width
 	else if ((width % 2) == 0)
 	{
+		for (int j = 0; j < size; j++)
+		{
+			int n = g.at(j);
+			int row;
 
+			// If max value (blank spot)
+			if (n == size)
+			{
+				row = (j / width) + 1;
+
+				// Null space on odd row
+				if ((row % 2) != 0)
+				{
+					if ((inv % 2) == 0)
+					{
+						cout << "This grid is unsolvable! Blank is on an odd row with an even # of inversions.\n";
+						return FAILURE;
+					}
+				}
+				// Null space on even row
+				else if ((row % 2) == 0)
+				{
+					if ((inv % 2) != 0)
+					{
+						cout << "This grid is unsolvable! Blank is on an even row with an odd # of inversions.\n";
+						return FAILURE;
+					}
+				}
+			}
+		}
 	}
 
-	return 0;
+	return SUCCESS;
 }
