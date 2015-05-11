@@ -30,8 +30,8 @@ int main()
 				Slider slider2;
 				vector<int> p, c1, c2, c21, c22, c3;
 				Node r(p, 8), leaf1(c1, 2), leaf2(c2, 8), leaf21(c21, 2), leaf22(c22, 1), leaf3(c3, 6);
-				r.addChild(leaf1); r.addChild(leaf2); r.addChild(leaf3);
-				leaf2.addChild(leaf21); leaf2.addChild(leaf22);
+				r.addChild(&leaf1); r.addChild(&leaf2); r.addChild(&leaf3);
+				leaf2.addChild(&leaf21); leaf2.addChild(&leaf22);
 
 				// Act
 				int output = slider2.smallestInverions(r);

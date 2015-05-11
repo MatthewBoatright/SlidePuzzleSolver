@@ -206,7 +206,7 @@ int Slider::smallestInverions(Node r)
 	// If it's smaller than the current H then we will return it. Else we ignore it.
 	*/
 	int H = 99999;
-	vector<Node> c = r.getChildren();
+	vector<Node*> c = r.getChildren();
 
 	//DEBUG
 	cout << "# of children: " << c.size() << "\n";
@@ -219,7 +219,7 @@ int Slider::smallestInverions(Node r)
 
 		for (int j = 0; j < c.size(); j++)
 		{
-			int inv = smallestInverions(c.at(j));
+			int inv = smallestInverions(*c.at(j));
 
 			//DEBUG
 			cout << "Child: " << (j + 1) << "\n";
