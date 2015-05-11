@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "../SlidePuzzleSolver/slider.h"
 #include "../SlidePuzzleSolver/slider.cpp"
+#include "../SlidePuzzleSolver/node.cpp"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -214,7 +215,7 @@ namespace SlidePuzzleSolverTests
 
 	};
 
-	TEST_CLASS(SolvabilityTests)
+	TEST_CLASS(SolvabilityTest)
 	{
 	public:
 
@@ -312,5 +313,169 @@ namespace SlidePuzzleSolverTests
 			Assert::AreEqual(expected, output);
 		}
 
+	};
+
+	TEST_CLASS(PossibleMovesTest)
+	{
+	public:
+
+		TEST_METHOD(PossibleMoves_TopLeft_ReturnDR)
+		{
+			// Arrange
+			string expected = "DR";
+			vector<int> g;
+			g = { 4, 1,
+				1, 1 };
+			Node node(g, 0);
+
+			// Act
+			vector<char> out = node.possibleMoves();
+			string output(out.begin(), out.end());
+
+			// Assert
+			Assert::AreEqual(expected, output);
+		}
+
+		TEST_METHOD(PossibleMoves_TopRight_ReturnDL)
+		{
+			// Arrange
+			string expected = "DL";
+			vector<int> g;
+			g = { 1, 4,
+				1, 1 };
+			Node node(g, 0);
+
+			// Act
+			vector<char> out = node.possibleMoves();
+			string output(out.begin(), out.end());
+
+			// Assert
+			Assert::AreEqual(expected, output);
+		}
+
+		TEST_METHOD(PossibleMoves_BottomLeft_ReturnRU)
+		{
+			// Arrange
+			string expected = "RU";
+			vector<int> g;
+			g = { 1, 1,
+				4, 1 };
+			Node node(g, 0);
+
+			// Act
+			vector<char> out = node.possibleMoves();
+			string output(out.begin(), out.end());
+
+			// Assert
+			Assert::AreEqual(expected, output);
+		}
+
+		TEST_METHOD(PossibleMoves_BottomRight_ReturnLU)
+		{
+			// Arrange
+			string expected = "LU";
+			vector<int> g;
+			g = { 1, 1,
+				1, 4 };
+			Node node(g, 0);
+
+			// Act
+			vector<char> out = node.possibleMoves();
+			string output(out.begin(), out.end());
+
+			// Assert
+			Assert::AreEqual(expected, output);
+		}
+
+		TEST_METHOD(PossibleMoves_LeftWall_ReturnDRU)
+		{
+			// Arrange
+			string expected = "DRU";
+			vector<int> g;
+			g = { 1, 1, 1,
+				9, 1, 1,
+				1, 1, 1 };
+			Node node(g, 0);
+
+			// Act
+			vector<char> out = node.possibleMoves();
+			string output(out.begin(), out.end());
+
+			// Assert
+			Assert::AreEqual(expected, output);
+		}
+
+		TEST_METHOD(PossibleMoves_RightWall_ReturnDLU)
+		{
+			// Arrange
+			string expected = "DLU";
+			vector<int> g;
+			g = { 1, 1, 1,
+				1, 1, 9,
+				1, 1, 1 };
+			Node node(g, 0);
+
+			// Act
+			vector<char> out = node.possibleMoves();
+			string output(out.begin(), out.end());
+
+			// Assert
+			Assert::AreEqual(expected, output);
+		}
+
+		TEST_METHOD(PossibleMoves_TopWall_ReturnDLR)
+		{
+			// Arrange
+			string expected = "DLR";
+			vector<int> g;
+			g = { 1, 9, 1,
+				1, 1, 1,
+				1, 1, 1 };
+			Node node(g, 0);
+
+			// Act
+			vector<char> out = node.possibleMoves();
+			string output(out.begin(), out.end());
+
+			// Assert
+			Assert::AreEqual(expected, output);
+		}
+
+		TEST_METHOD(PossibleMoves_BottomWall_ReturnLRU)
+		{
+			// Arrange
+			string expected = "LRU";
+			vector<int> g;
+			g = { 1, 1, 1,
+				1, 1, 1,
+				1, 9, 1 };
+			Node node(g, 0);
+
+			// Act
+			vector<char> out = node.possibleMoves();
+			string output(out.begin(), out.end());
+
+			// Assert
+			Assert::AreEqual(expected, output);
+		}
+
+		TEST_METHOD(PossibleMoves_Center_ReturnDLRU)
+		{
+			// Arrange
+			string expected = "DLRU";
+			vector<int> g;
+			g = { 1, 1, 1,
+				1, 9, 1,
+				1, 1, 1 };
+			Node node(g, 0);
+
+			// Act
+			vector<char> out = node.possibleMoves();
+			string output(out.begin(), out.end());
+
+			// Assert
+			Assert::AreEqual(expected, output);
+		}
+		
 	};
 }

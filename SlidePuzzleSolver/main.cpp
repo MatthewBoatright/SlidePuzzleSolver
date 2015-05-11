@@ -16,11 +16,22 @@ int main()
 		if (signal == SUCCESS)
 		{
 			cout << "Beginning calculations...\n";
-			signal = slider.solvability(slider.getGrid(), slider.inversions(slider.getGrid()));
+			vector<int> g = slider.getGrid();
+			int i = slider.inversions(g);
+
+			signal = slider.solvability(g, i);
 
 			if (signal == SUCCESS)
 			{
 				cout << "Solving...\n";
+				Node root(g, i);
+				
+				//DEBUG
+				vector<char> m = root.possibleMoves();
+				for (int j = 0; j < m.size(); j++)
+				{
+					cout << m.at(j) << "\n";
+				}
 			}
 		}
 		else if (signal == FAILURE)

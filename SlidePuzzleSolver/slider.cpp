@@ -118,6 +118,7 @@ int Slider::inversions(vector<int> g)
 		}
 	}
 
+	cout << "# of inversions: " << inv << "\n";
 	return inv;
 }
 
@@ -129,7 +130,7 @@ int Slider::solvability(vector<int> g, int inv)
 {
 	/* Notes about solvability:
 	// To determine a sliding puzzles solvability we must first count its number of inversions.
-	// The number of inversions is represented the number of tiles (a, b) where a>b but appears before b.
+	// The number of inversions is represented the number of tiles (a, b) where a>b but a appears before b.
 	// If an odd width grid has an even number of inversions then it is solvable.
 	// For an even width grid:
 	//		If the null space is on an even row (from the top), the number of inversions must be even.
@@ -165,7 +166,7 @@ int Slider::solvability(vector<int> g, int inv)
 				{
 					if ((inv % 2) == 0)
 					{
-						cout << "This grid is unsolvable! Blank is on an odd row with an even # of inversions.\n";
+						cout << "This grid is unsolvable! Null is on an odd row with an even # of inversions.\n";
 						return FAILURE;
 					}
 				}
@@ -174,7 +175,7 @@ int Slider::solvability(vector<int> g, int inv)
 				{
 					if ((inv % 2) != 0)
 					{
-						cout << "This grid is unsolvable! Blank is on an even row with an odd # of inversions.\n";
+						cout << "This grid is unsolvable! Null is on an even row with an odd # of inversions.\n";
 						return FAILURE;
 					}
 				}

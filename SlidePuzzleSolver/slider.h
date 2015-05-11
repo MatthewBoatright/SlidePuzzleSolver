@@ -36,4 +36,22 @@ public:
 	vector<int> getGrid() { return grid; };
 };
 
+class Node
+{
+private:
+	int inv;	
+	char last_move;
+	vector<int> grid;
+	vector<Node> children;
+public:
+	Node(vector<int> g, int i) { grid = g; inv = i; };
+	int getInv() { return inv; };
+	char getLastMove() { return last_move; };
+	void setLastMove(char lm) { last_move = lm; };
+	vector<int> getGrid() { return grid; };
+	vector<Node> getChildren() { return children; };
+	void addChild(Node c) { children.push_back(c); };
+	vector<char> possibleMoves();
+};
+
 #endif

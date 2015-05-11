@@ -65,11 +65,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="slider.h" />
-    <ClInclude Include="tree.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="slider.cpp" />
+    <ClCompile Include="node.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SlidePuzzleSolverTests\SlidePuzzleSolverTests.vcxproj">
