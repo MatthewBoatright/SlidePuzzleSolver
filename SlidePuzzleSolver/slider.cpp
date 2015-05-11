@@ -205,15 +205,27 @@ int Slider::smallestInverions(Node r)
 	// If there are no children then the node is a leaf and we can look at its number of inversions.
 	// If it's smaller than the current H then we will return it. Else we ignore it.
 	*/
-	int H = 999;
+	int H = 99999;
 	vector<Node> c = r.getChildren();
+
+	//DEBUG
+	cout << "# of children: " << c.size() << "\n";
 
 	// If there are children, keep going down.
 	if (c.size() > 0)
 	{
+		//DEBUG
+		cout << "This is a parent.\n";
+
 		for (int j = 0; j < c.size(); j++)
 		{
 			int inv = smallestInverions(c.at(j));
+
+			//DEBUG
+			cout << "Child: " << (j + 1) << "\n";
+			cout << "	Inversions: " << inv << "\n";
+			cout << "	H: " << H << "\n";
+
 			if (inv < H)
 			{
 				H = inv;
@@ -223,6 +235,9 @@ int Slider::smallestInverions(Node r)
 	// If no children, this is a leaf. Grab the number of inversions.
 	else
 	{
+		//DEBUG
+		cout << "This is a leaf.\n";
+
 		H = r.getInv();
 	}
 

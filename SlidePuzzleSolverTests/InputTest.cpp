@@ -559,18 +559,37 @@ namespace SlidePuzzleSolverTests
 	{
 	public:
 
-		TEST_METHOD(Traverse_Tree_Return6)
+		TEST_METHOD(Traverse_TwoTier_Return1)
 		{
 			// Arrange
-			int expected = 6;
+			int expected = 1;
 			Slider slider;
 			vector<int> p, c1, c2, c3;
-			p = { 4, 2, 3, 1, 9, 6, 8, 5, 7 };		// 8 Inv
-			c1 = { 4, 2, 3, 9, 1, 6, 8, 5, 7 };		// 8 Inv
-			c2 = { 4, 9, 3, 1, 2, 6, 8, 5, 7 };		// 8 Inv
-			c3 = { 4, 2, 3, 1, 5, 6, 8, 9, 7 };		// 6 Inv
-			Node root(p, 8), leaf1(c1, 8), leaf2(c2, 8), leaf3(c3, 6);
+			Node root(p, 8), leaf1(c1, 1), leaf2(c2, 8), leaf3(c3, 6);
 			root.addChild(leaf1); root.addChild(leaf2); root.addChild(leaf3);
+
+			// Act
+			int output = slider.smallestInverions(root);
+
+			// Assert
+			Assert::AreEqual(expected, output);
+		}
+
+		TEST_METHOD(Traverse_ThreeTier_Return1)
+		{
+			/*				R
+			//			   /|\
+			//			 c1 c2 c3
+			//				/\
+			//			  c21 c22
+			*/
+			// Arrange
+			int expected = 1;
+			Slider slider;
+			vector<int> p, c1, c2, c21, c22, c3;
+			Node root(p, 8), leaf1(c1, 2), leaf2(c2, 8), leaf21(c21, 2), leaf22(c22, 1), leaf3(c3, 6);
+			root.addChild(leaf1); root.addChild(leaf2); root.addChild(leaf3);
+			leaf2.addChild(leaf21); leaf2.addChild(leaf22);
 
 			// Act
 			int output = slider.smallestInverions(root);
