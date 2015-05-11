@@ -185,3 +185,51 @@ int Slider::solvability(vector<int> g, int inv)
 
 	return SUCCESS;
 }
+
+vector<char> Slider::solve(Node r)
+{
+	vector<char> solution;
+
+
+
+	return solution;
+}
+
+// RETURN:
+//			H = inversion hueristic
+//
+int Slider::smallestInverions(Node r)
+{
+	/* This is a recursive function that finds the smallest number of inversions through DFS and returns it.
+	// The root is the first node passed to this function. It will check the current nodes number of children.
+	// If there are no children then the node is a leaf and we can look at its number of inversions.
+	// If it's smaller than the current H then we will return it. Else we ignore it.
+	*/
+	int H = 999;
+	vector<Node> c = r.getChildren();
+
+	// If there are children, keep going down.
+	if (c.size() > 0)
+	{
+		for (int j = 0; j < c.size(); j++)
+		{
+			int inv = smallestInverions(c.at(j));
+			if (inv < H)
+			{
+				H = inv;
+			}
+		}
+	}
+	// If no children, this is a leaf. Grab the number of inversions.
+	else
+	{
+		H = r.getInv();
+	}
+
+	return H;
+}
+
+void Slider::expandSmallest(int i)
+{
+
+}

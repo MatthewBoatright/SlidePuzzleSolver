@@ -23,23 +23,10 @@
 // SLIDER CLASS
 using namespace std;
 
-class Slider
-{
-private:
-	string INPUT;
-	vector<int> grid;
-public:
-	int setInput(string in="");
-	int inversions(vector<int> g);
-	int solvability(vector<int> g, int inv);
-	string getInput() { return INPUT; };
-	vector<int> getGrid() { return grid; };
-};
-
 class Node
 {
 private:
-	int inv;	
+	int inv;
 	char last_move;
 	vector<int> grid;
 	vector<Node> children;
@@ -52,6 +39,22 @@ public:
 	vector<Node> getChildren() { return children; };
 	void addChild(Node c) { children.push_back(c); };
 	vector<char> possibleMoves();
+};
+
+class Slider
+{
+private:
+	string INPUT;
+	vector<int> grid;
+public:
+	int setInput(string in="");
+	int inversions(vector<int> g);
+	int solvability(vector<int> g, int inv);
+	string getInput() { return INPUT; };
+	vector<int> getGrid() { return grid; };
+	vector<char> solve(Node r);
+	int smallestInverions(Node r);
+	void expandSmallest(int i);
 };
 
 #endif

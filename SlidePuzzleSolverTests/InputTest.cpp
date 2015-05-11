@@ -554,4 +554,29 @@ namespace SlidePuzzleSolverTests
 		}
 		
 	};
+
+	TEST_CLASS(TraverseInversionsTest)
+	{
+	public:
+
+		TEST_METHOD(Traverse_Tree_Return6)
+		{
+			// Arrange
+			int expected = 6;
+			Slider slider;
+			vector<int> p, c1, c2, c3;
+			p = { 4, 2, 3, 1, 9, 6, 8, 5, 7 };		// 8 Inv
+			c1 = { 4, 2, 3, 9, 1, 6, 8, 5, 7 };		// 8 Inv
+			c2 = { 4, 9, 3, 1, 2, 6, 8, 5, 7 };		// 8 Inv
+			c3 = { 4, 2, 3, 1, 5, 6, 8, 9, 7 };		// 6 Inv
+			Node root(p, 8), leaf1(c1, 8), leaf2(c2, 8), leaf3(c3, 6);
+			root.addChild(leaf1); root.addChild(leaf2); root.addChild(leaf3);
+
+			// Act
+			int output = slider.smallestInverions(root);
+
+			// Assert
+			Assert::AreEqual(expected, output);
+		}
+	};
 }

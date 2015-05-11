@@ -25,13 +25,6 @@ int main()
 			{
 				cout << "Solving...\n";
 				Node root(g, i);
-				
-				//DEBUG
-				vector<char> m = root.possibleMoves();
-				for (int j = 0; j < m.size(); j++)
-				{
-					cout << m.at(j) << "\n";
-				}
 			}
 		}
 		else if (signal == FAILURE)
