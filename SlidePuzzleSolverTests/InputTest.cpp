@@ -477,10 +477,10 @@ namespace SlidePuzzleSolverTests
 			Assert::AreEqual(expected, output);
 		}
 
-		TEST_METHOD(PossibleMoves_LastMoveD_ReturnLRU)
+		TEST_METHOD(PossibleMoves_LastMoveD_ReturnDLR)
 		{
 			// Arrange
-			string expected = "LRU";
+			string expected = "DLR";
 			vector<int> g;
 			g = { 1, 1, 1,
 				1, 9, 1,
@@ -496,10 +496,10 @@ namespace SlidePuzzleSolverTests
 			Assert::AreEqual(expected, output);
 		}
 
-		TEST_METHOD(PossibleMoves_LastMoveL_ReturnDRU)
+		TEST_METHOD(PossibleMoves_LastMoveL_ReturnDLU)
 		{
 			// Arrange
-			string expected = "DRU";
+			string expected = "DLU";
 			vector<int> g;
 			g = { 1, 1, 1,
 				1, 9, 1,
@@ -515,10 +515,10 @@ namespace SlidePuzzleSolverTests
 			Assert::AreEqual(expected, output);
 		}
 
-		TEST_METHOD(PossibleMoves_LastMoveR_ReturnDLU)
+		TEST_METHOD(PossibleMoves_LastMoveR_ReturnDRU)
 		{
 			// Arrange
-			string expected = "DLU";
+			string expected = "DRU";
 			vector<int> g;
 			g = { 1, 1, 1,
 				1, 9, 1,
@@ -534,10 +534,10 @@ namespace SlidePuzzleSolverTests
 			Assert::AreEqual(expected, output);
 		}
 
-		TEST_METHOD(PossibleMoves_LastMoveU_ReturnDLR)
+		TEST_METHOD(PossibleMoves_LastMoveU_ReturnLRU)
 		{
 			// Arrange
-			string expected = "DLR";
+			string expected = "LRU";
 			vector<int> g;
 			g = { 1, 1, 1,
 				1, 9, 1,
@@ -555,11 +555,11 @@ namespace SlidePuzzleSolverTests
 		
 	};
 
-	TEST_CLASS(TraverseInversionsTest)
+	TEST_CLASS(SmallestDistanceTest)
 	{
 	public:
 
-		TEST_METHOD(Traverse_TwoTier_Return1)
+		TEST_METHOD(SmallestDistance_TwoTier_Return1)
 		{
 			// Arrange
 			int expected = 1;
@@ -569,13 +569,13 @@ namespace SlidePuzzleSolverTests
 			root.addChild(&leaf1); root.addChild(&leaf2); root.addChild(&leaf3);
 
 			// Act
-			int output = slider.smallestInverions(root);
+			int output = slider.smallestDistance(&root);
 
 			// Assert
 			Assert::AreEqual(expected, output);
 		}
 
-		TEST_METHOD(Traverse_ThreeTier_Return1)
+		TEST_METHOD(SmallestDistance_ThreeTier_Return1)
 		{
 			/*				R
 			//			   /|\
@@ -592,10 +592,44 @@ namespace SlidePuzzleSolverTests
 			leaf2.addChild(&leaf21); leaf2.addChild(&leaf22);
 
 			// Act
-			int output = slider.smallestInverions(root);
+			int output = slider.smallestDistance(&root);
 
 			// Assert
 			Assert::AreEqual(expected, output);
 		}
 	};
+
+	TEST_CLASS(ManhattanDistanceTest)
+	{
+	public:
+
+		Slider slider;
+
+		TEST_METHOD(Distance_3x3_Return40)
+		{
+			// Arrange
+			int expected = 40;
+			vector<int> grid = { 9, 8, 7, 6, 5, 4, 3, 2, 1 };
+
+			// Act
+			int output = slider.getManhattanDistance(grid);
+
+			// Assert
+			Assert::AreEqual(expected, output);
+		}
+
+		TEST_METHOD(Distance_3x3_Return0)
+		{
+			// Arrange
+			int expected = 0;
+			vector<int> grid = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+
+			// Act
+			int output = slider.getManhattanDistance(grid);
+
+			// Assert
+			Assert::AreEqual(expected, output);
+		}
+	};
+
 }

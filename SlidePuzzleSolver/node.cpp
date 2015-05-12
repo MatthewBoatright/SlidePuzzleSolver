@@ -16,7 +16,7 @@ vector<char> Node::possibleMoves()
 	//		Determine if null is against a wall. (Only three possible moves).
 	*/
 	vector<char> moves;
-	int loc;
+	int loc = -1;
 	int size = grid.size();
 	int width = sqrt(size);
 
@@ -70,10 +70,27 @@ vector<char> Node::possibleMoves()
 		moves = { 'D', 'L', 'R', 'U' };
 	}
 
+	////DEBUG
+	//cout << last_move << " MOVES: ";
+	//for (int x = 0; x < grid.size(); x++)
+	//{
+	//	cout << grid.at(x);
+	//}
+	//cout << "\n";
+
 	// Remove last_move
+	char lm = ' ';
+	if (last_move == 'D')
+		lm = 'U';
+	if (last_move == 'L')
+		lm = 'R';
+	if (last_move == 'R')
+		lm = 'L';
+	if (last_move == 'U')
+		lm = 'D';
 	for (int j = 0; j < moves.size(); j++)
 	{
-		if (moves.at(j) == last_move)
+		if (moves.at(j) == lm)
 		{
 			moves.erase(moves.begin()+j);
 		}

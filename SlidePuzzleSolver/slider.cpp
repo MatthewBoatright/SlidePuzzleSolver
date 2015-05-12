@@ -118,7 +118,7 @@ int Slider::inversions(vector<int> g)
 		}
 	}
 
-	cout << "# of inversions: " << inv << "\n";
+	//cout << "# of inversions: " << inv << "\n";
 	return inv;
 }
 
@@ -186,11 +186,42 @@ int Slider::solvability(vector<int> g, int inv)
 	return SUCCESS;
 }
 
-vector<char> Slider::solve(Node r)
+int Slider::getManhattanDistance(vector<int> g)
+{
+	int distance = 0;
+
+	for (int j = 0; j < g.size(); j++)
+	{
+		distance += abs((j + 1) - g.at(j));
+	}
+
+	return distance;
+}
+
+vector<char> Slider::solve(Node *n)
 {
 	vector<char> solution;
+	int h = smallestDistance(n);
 
+	////DEBUG
+	//cout << "Starting distance: " << h << "\n";
 
+	while (h != 0)
+	{
+		expandNodes(n, h);
+		h = smallestDistance(n);
+		//char c;
+		//cin >> c;
+	}
+
+	solution = getSolutions(n, solution);
+
+	cout << "PATH: ";
+	for (int x = 0; x < solution.size(); x++)
+	{
+		cout << solution.at(x);
+	}
+	cout << "\n";
 
 	return solution;
 }
@@ -198,7 +229,7 @@ vector<char> Slider::solve(Node r)
 // RETURN:
 //			H = inversion hueristic
 //
-int Slider::smallestInverions(Node r)
+int Slider::smallestDistance(Node* n)
 {
 	/* This is a recursive function that finds the smallest number of inversions through DFS and returns it.
 	// The root is the first node passed to this function. It will check the current nodes number of children.
@@ -206,45 +237,140 @@ int Slider::smallestInverions(Node r)
 	// If it's smaller than the current H then we will return it. Else we ignore it.
 	*/
 	int H = 99999;
-	vector<Node*> c = r.getChildren();
-
-	//DEBUG
-	cout << "# of children: " << c.size() << "\n";
+	vector<Node*> c = n->getChildren();
 
 	// If there are children, keep going down.
 	if (c.size() > 0)
 	{
-		//DEBUG
-		cout << "This is a parent.\n";
 
 		for (int j = 0; j < c.size(); j++)
 		{
-			int inv = smallestInverions(*c.at(j));
+			int dist = smallestDistance(c.at(j));
 
-			//DEBUG
-			cout << "Child: " << (j + 1) << "\n";
-			cout << "	Inversions: " << inv << "\n";
-			cout << "	H: " << H << "\n";
-
-			if (inv < H)
+			if (dist < H)
 			{
-				H = inv;
+				H = dist;
 			}
 		}
 	}
 	// If no children, this is a leaf. Grab the number of inversions.
 	else
 	{
-		//DEBUG
-		cout << "This is a leaf.\n";
-
-		H = r.getInv();
+		H = n->getDist();
 	}
 
 	return H;
 }
 
-void Slider::expandSmallest(int i)
+void Slider::expandNodes(Node *n, int i)
 {
+	/* This is a recursive function that will traverse the game tree and expand
+	// any leaf nodes that have the smallest number of inversions.
+	*/
+	vector<Node*> c = n->getChildren();
+	vector<int> g = n->getGrid();
+	int size = g.size();
+	int width = sqrt(size);
+	int d = n->getDist();
 
+	////DEBUG
+	//cout << c.size() << " CURR NODE: ";
+	//for (int x = 0; x < g.size(); x++)
+	//{
+	//	cout << g.at(x);
+	//}
+	//cout << "\n";
+
+	// DFS to leaf nodes.
+	if (c.size() > 0)
+	{
+		for (int j = 0; j < c.size(); j++)
+		{
+			expandNodes(c.at(j), i);
+		}
+	}
+	/*	When at a leaf:
+	//		Determine the possible moves for this node.
+	//		Get null space location.
+	//		Based on possible moves, rearrange grid.
+	//			D = Switch null space with space at loc + width
+	//			L = Switch null space with space at loc - 1
+	//			R = Switch null space with space at loc + 1
+	//			U = Switch null space with space at loc - width
+	//		Create a number of additional nodes based on the number of possible moves.
+	*/
+	else if (d == i)
+	{
+		////DEBUG
+		//cout << d << " EXPANDING: ";
+		//for (int x = 0; x < g.size(); x++)
+		//{
+		//	cout << g.at(x);
+		//}
+		//cout << "\n";
+
+		vector<char> moves = n->possibleMoves();
+		vector<int> temp;
+		int loc;
+
+		for (int k = 0; k < size; k++)
+		{
+			if (g.at(k) == size)
+			{
+				loc = k;
+			}
+		}
+
+		for (int k = 0; k < moves.size(); k++)
+		{
+			temp = g;
+			if (moves.at(k) == 'D')
+			{
+				iter_swap(temp.begin() + loc, temp.begin() + (loc + width));
+			}
+			else if (moves.at(k) == 'L')
+			{
+				iter_swap(temp.begin() + loc, temp.begin() + (loc - 1));
+			}
+			else if (moves.at(k) == 'R')
+			{
+				iter_swap(temp.begin() + loc, temp.begin() + (loc + 1));
+			}
+			else if (moves.at(k) == 'U')
+			{
+				iter_swap(temp.begin() + loc, temp.begin() + (loc - width));
+			}
+
+			////DEBUG
+			//cout << "- OUTPUT: ";
+			//for (int x = 0; x < temp.size(); x++)
+			//{
+			//	cout << temp.at(x);
+			//}
+			//cout << "\n";
+
+			Node* next = new Node(temp, getManhattanDistance(temp), n->getPath());
+			next->setLastMove(moves.at(k));
+			n->addChild(next);
+		}
+	}
+}
+
+vector<char> Slider::getSolutions(Node* n, vector<char> solution)
+{
+	vector<Node*> c = n->getChildren();
+
+	if (c.size() > 0)
+	{
+		for (int j = 0; j < c.size(); j++)
+		{
+			solution = getSolutions(c.at(j), solution);
+		}
+	}
+	else if (n->getDist() == 0)
+	{
+		return n->getPath();
+	}
+
+	return solution;
 }
