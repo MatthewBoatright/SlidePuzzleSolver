@@ -18,14 +18,13 @@ int main()
 			cout << "Beginning calculations...\n";
 			vector<int> g = slider.getGrid();
 			int i = slider.getManhattanDistance(g);
-			vector<char> p;
 
 			signal = slider.solvability(g, slider.inversions(g));
 
 			if (signal == SUCCESS)
 			{
 				cout << "Solving...\n";
-				Node root(g, i, p);
+				Node root(g, i, 0);
 				slider.solve(&root);
 			}
 		}

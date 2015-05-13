@@ -212,6 +212,7 @@ vector<char> Slider::solve(Node *n)
 		h = smallestDistance(n);
 		//char c;
 		//cin >> c;
+		cout << "\n";
 	}
 
 	solution = getSolutions(n, solution);
@@ -273,13 +274,17 @@ void Slider::expandNodes(Node *n, int i)
 	int width = sqrt(size);
 	int d = n->getDist();
 
-	////DEBUG
-	//cout << c.size() << " CURR NODE: ";
-	//for (int x = 0; x < g.size(); x++)
-	//{
-	//	cout << g.at(x);
-	//}
-	//cout << "\n";
+	//DEBUG
+	for (int x = 0; x < n->getDepth(); x++)
+	{
+		cout << "_";
+	}
+	cout << "(" << c.size() << ", " << n->getDist() << ") CURR NODE: ";
+	for (int x = 0; x < g.size(); x++)
+	{
+		cout << g.at(x);
+	}
+	cout << "\n";
 
 	// DFS to leaf nodes.
 	if (c.size() > 0)
@@ -301,13 +306,13 @@ void Slider::expandNodes(Node *n, int i)
 	*/
 	else if (d == i)
 	{
-		////DEBUG
-		//cout << d << " EXPANDING: ";
-		//for (int x = 0; x < g.size(); x++)
-		//{
-		//	cout << g.at(x);
-		//}
-		//cout << "\n";
+		//DEBUG
+		cout << d << " EXPANDING: ";
+		for (int x = 0; x < g.size(); x++)
+		{
+			cout << g.at(x);
+		}
+		cout << "\n";
 
 		vector<char> moves = n->possibleMoves();
 		vector<int> temp;
@@ -341,15 +346,16 @@ void Slider::expandNodes(Node *n, int i)
 				iter_swap(temp.begin() + loc, temp.begin() + (loc - width));
 			}
 
-			////DEBUG
-			//cout << "- OUTPUT: ";
-			//for (int x = 0; x < temp.size(); x++)
-			//{
-			//	cout << temp.at(x);
-			//}
-			//cout << "\n";
+			//DEBUG
+			cout << "- OUTPUT: ";
+			for (int x = 0; x < temp.size(); x++)
+			{
+				cout << temp.at(x);
+			}
+			cout << " D: " << getManhattanDistance(temp);
+			cout << "\n";
 
-			Node* next = new Node(temp, getManhattanDistance(temp), n->getPath());
+			Node* next = new Node(temp, getManhattanDistance(temp), n->getDepth() + 1, n->getPath());
 			next->setLastMove(moves.at(k));
 			n->addChild(next);
 		}

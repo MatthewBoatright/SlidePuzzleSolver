@@ -27,13 +27,15 @@ class Node
 {
 private:
 	int dist;
+	int depth;
 	char last_move;
 	vector<char> path;
 	vector<int> grid;
 	vector<Node*> children;
 public:
-	Node(vector<int> g, int i, vector<char> p = {}) { grid = g; dist = i; path = p; };
+	Node(vector<int> g, int i, int d, vector<char> p = {}) { grid = g; dist = i; depth = d; path = p; };
 	int getDist() { return dist; };
+	int getDepth() { return depth; };
 	char getLastMove() { return last_move; };
 	void setLastMove(char lm) { last_move = lm; path.push_back(lm); };
 	vector<int> getGrid() { return grid; };

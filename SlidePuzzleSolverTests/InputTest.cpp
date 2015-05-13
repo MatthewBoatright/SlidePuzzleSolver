@@ -326,7 +326,7 @@ namespace SlidePuzzleSolverTests
 			vector<int> g;
 			g = { 4, 1,
 				1, 1 };
-			Node node(g, 0);
+			Node node(g, 0, 0);
 
 			// Act
 			vector<char> out = node.possibleMoves();
@@ -343,7 +343,7 @@ namespace SlidePuzzleSolverTests
 			vector<int> g;
 			g = { 1, 4,
 				1, 1 };
-			Node node(g, 0);
+			Node node(g, 0, 0);
 
 			// Act
 			vector<char> out = node.possibleMoves();
@@ -360,7 +360,7 @@ namespace SlidePuzzleSolverTests
 			vector<int> g;
 			g = { 1, 1,
 				4, 1 };
-			Node node(g, 0);
+			Node node(g, 0, 0);
 
 			// Act
 			vector<char> out = node.possibleMoves();
@@ -377,7 +377,7 @@ namespace SlidePuzzleSolverTests
 			vector<int> g;
 			g = { 1, 1,
 				1, 4 };
-			Node node(g, 0);
+			Node node(g, 0, 0);
 
 			// Act
 			vector<char> out = node.possibleMoves();
@@ -395,7 +395,7 @@ namespace SlidePuzzleSolverTests
 			g = { 1, 1, 1,
 				9, 1, 1,
 				1, 1, 1 };
-			Node node(g, 0);
+			Node node(g, 0, 0);
 
 			// Act
 			vector<char> out = node.possibleMoves();
@@ -413,7 +413,7 @@ namespace SlidePuzzleSolverTests
 			g = { 1, 1, 1,
 				1, 1, 9,
 				1, 1, 1 };
-			Node node(g, 0);
+			Node node(g, 0, 0);
 
 			// Act
 			vector<char> out = node.possibleMoves();
@@ -431,7 +431,7 @@ namespace SlidePuzzleSolverTests
 			g = { 1, 9, 1,
 				1, 1, 1,
 				1, 1, 1 };
-			Node node(g, 0);
+			Node node(g, 0, 0);
 
 			// Act
 			vector<char> out = node.possibleMoves();
@@ -449,7 +449,7 @@ namespace SlidePuzzleSolverTests
 			g = { 1, 1, 1,
 				1, 1, 1,
 				1, 9, 1 };
-			Node node(g, 0);
+			Node node(g, 0, 0);
 
 			// Act
 			vector<char> out = node.possibleMoves();
@@ -467,7 +467,7 @@ namespace SlidePuzzleSolverTests
 			g = { 1, 1, 1,
 				1, 9, 1,
 				1, 1, 1 };
-			Node node(g, 0);
+			Node node(g, 0, 0);
 
 			// Act
 			vector<char> out = node.possibleMoves();
@@ -485,7 +485,7 @@ namespace SlidePuzzleSolverTests
 			g = { 1, 1, 1,
 				1, 9, 1,
 				1, 1, 1 };
-			Node node(g, 0);
+			Node node(g, 0, 0);
 			node.setLastMove('D');
 
 			// Act
@@ -504,7 +504,7 @@ namespace SlidePuzzleSolverTests
 			g = { 1, 1, 1,
 				1, 9, 1,
 				1, 1, 1 };
-			Node node(g, 0);
+			Node node(g, 0, 0);
 			node.setLastMove('L');
 
 			// Act
@@ -523,7 +523,7 @@ namespace SlidePuzzleSolverTests
 			g = { 1, 1, 1,
 				1, 9, 1,
 				1, 1, 1 };
-			Node node(g, 0);
+			Node node(g, 0, 0);
 			node.setLastMove('R');
 
 			// Act
@@ -542,7 +542,7 @@ namespace SlidePuzzleSolverTests
 			g = { 1, 1, 1,
 				1, 9, 1,
 				1, 1, 1 };
-			Node node(g, 0);
+			Node node(g, 0, 0);
 			node.setLastMove('U');
 
 			// Act
@@ -565,7 +565,7 @@ namespace SlidePuzzleSolverTests
 			int expected = 1;
 			Slider slider;
 			vector<int> p, c1, c2, c3;
-			Node root(p, 8), leaf1(c1, 1), leaf2(c2, 8), leaf3(c3, 6);
+			Node root(p, 8, 0), leaf1(c1, 1, 1), leaf2(c2, 8, 1), leaf3(c3, 6, 1);
 			root.addChild(&leaf1); root.addChild(&leaf2); root.addChild(&leaf3);
 
 			// Act
@@ -587,7 +587,7 @@ namespace SlidePuzzleSolverTests
 			int expected = 1;
 			Slider slider;
 			vector<int> p, c1, c2, c21, c22, c3;
-			Node root(p, 8), leaf1(c1, 2), leaf2(c2, 8), leaf21(c21, 2), leaf22(c22, 1), leaf3(c3, 6);
+			Node root(p, 8, 0), leaf1(c1, 2, 1), leaf2(c2, 8, 1), leaf21(c21, 2, 2), leaf22(c22, 1, 2), leaf3(c3, 6, 1);
 			root.addChild(&leaf1); root.addChild(&leaf2); root.addChild(&leaf3);
 			leaf2.addChild(&leaf21); leaf2.addChild(&leaf22);
 
